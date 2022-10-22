@@ -30,4 +30,8 @@ public class Post {
 
     @Column(columnDefinition = "integer default 0")
     private int hits;
+
+    public void updateHits() {
+        hits++;
+    }
 }

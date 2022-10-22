@@ -30,10 +30,23 @@ public class PostService {
     }
 
     public void view(Long id) {
-        if (!postRepository.existsById(id)) {
-            throw new RuntimeException();
-        }
+        // 동시성 고려 X
+        Post post = postRepository.findById(id)
+            .orElseThrow(RuntimeException::new);
 
-        postRepository.updateHits(id);
+        post.updateHits();
+
+//        // UPDATE 문
+//        if (!postRepository.existsById(id)) {
+//            throw new RuntimeException();
+//        }
+//
+//        postRepository.updateHits(id);
+//
+//        // 비관적 Lock
+//        Post post = postRepository.findByIdForUpdate(id)
+//            .orElseThrow(RuntimeException::new);
+//
+//        post.updateHits();
     }
 }
