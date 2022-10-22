@@ -28,4 +28,12 @@ public class PostService {
 
         return PostMapper.INSTANCE.toDto(post);
     }
+
+    public void view(Long id) {
+        if (!postRepository.existsById(id)) {
+            throw new RuntimeException();
+        }
+
+        postRepository.updateHits(id);
+    }
 }
